@@ -1,1 +1,1 @@
-Примет консольного взаимодействия с API Sber GigaChat на Java
+Пример консольного взаимодействия с API Sber GigaChat на Java--
