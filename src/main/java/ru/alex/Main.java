@@ -1,5 +1,8 @@
 package ru.alex;
 
+import ru.alex.respone.AssistantResponse;
+import ru.alex.respone.TokenProvider;
+
 import java.util.Scanner;
 
 public class Main {

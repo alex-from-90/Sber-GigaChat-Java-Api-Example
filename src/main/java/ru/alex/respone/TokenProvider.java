@@ -1,4 +1,4 @@
-package ru.alex;
+package ru.alex.respone;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import ru.alex.config.AppConfig;
 
 import java.util.Base64;
 import java.util.UUID;

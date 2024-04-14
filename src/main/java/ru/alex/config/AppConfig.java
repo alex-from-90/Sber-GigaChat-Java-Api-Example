@@ -1,4 +1,4 @@
-package ru.alex;
+package ru.alex.config;
 
 import lombok.Getter;
 import okhttp3.MediaType;

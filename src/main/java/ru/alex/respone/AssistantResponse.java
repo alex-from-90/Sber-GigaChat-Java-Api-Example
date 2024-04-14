@@ -1,4 +1,4 @@
-package ru.alex;
+package ru.alex.respone;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -7,33 +7,32 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import ru.alex.config.AppConfig;
+import ru.alex.config.ChatSettings;
 
 public class AssistantResponse {
-    private static final OkHttpClient client = new OkHttpClient().newBuilder().build(); // Создание клиента HTTP
-    private static final Gson gson = new Gson(); // Создание экземпляра Gson для работы с JSON
+    private static final OkHttpClient client = new OkHttpClient().newBuilder().build();
+    private static final Gson gson = new Gson();
 
     public static String getAssistantResponse(String accessToken, String userMessage) throws Exception {
-        // Формирование тела запроса
         String bodyContent = "{"
-                + "  \"model\": \"GigaChat\","
+                + "  \"model\": \"" + ChatSettings.MODEL + "\","
                 + "  \"messages\": ["
                 + "    {"
                 + "      \"role\": \"user\","
                 + "      \"content\": \"" + userMessage + "\""
                 + "    }"
                 + "  ],"
-                + "  \"temperature\": 1,"
-                + "  \"top_p\": 0.1,"
-                + "  \"n\": 1,"
+                + "  \"temperature\": " + ChatSettings.TEMPERATURE + ","
+                + "  \"top_p\": " + ChatSettings.TOP_P + ","
+                + "  \"n\": " + ChatSettings.N + ","
                 + "  \"stream\": false,"
-                + "  \"max_tokens\": 512,"
-                + "  \"repetition_penalty\": 1"
+                + "  \"max_tokens\": " + ChatSettings.MAX_TOKENS + ","
+                + "  \"repetition_penalty\": " + ChatSettings.REPETITION_PENALTY
                 + "}";
 
-        // Создание тела запроса
         RequestBody body = RequestBody.create(bodyContent, AppConfig.getMediaTypeJson());
 
-        // Создание запроса
         Request request = new Request.Builder()
                 .url(AppConfig.getChatUrl())
                 .method("POST", body)
@@ -42,7 +41,6 @@ public class AssistantResponse {
                 .addHeader("Authorization", "Bearer " + accessToken)
                 .build();
 
-        // Выполнение запроса и обработка ответа
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
@@ -53,7 +51,6 @@ public class AssistantResponse {
         }
     }
 
-    // Извлечение ответа ассистента из тела ответа
     private static String extractAssistantResponse(String responseBody) {
         JsonObject jsonObj = gson.fromJson(responseBody, JsonObject.class);
         JsonArray choicesArray = jsonObj.getAsJsonArray("choices");
@@ -67,3 +64,4 @@ public class AssistantResponse {
         }
     }
 }
+
