@@ -29,7 +29,7 @@ public class TokenProvider {
 
     private static void updateToken() throws Exception {
         String authData = Base64.getEncoder().encodeToString((AppConfig.getClientId() + ":" + AppConfig.getClientSecret()).getBytes()); // Кодирование данных авторизации в Base64
-        String authHeader = "Basic " + authData; // Создание заголовка авторизации
+        String authHeader = "Basic " + authData; // Формирование заголовка авторизации
 
         String bodyContent = "scope=GIGACHAT_API_PERS"; // Содержимое тела запроса
         RequestBody body = RequestBody.create(bodyContent, AppConfig.getMediaTypeForm()); // Создание тела запроса
@@ -39,7 +39,7 @@ public class TokenProvider {
                 .method("POST", body)
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .addHeader("Accept", "application/json")
-                .addHeader("RqUID", RQ_UID)
+                .addHeader("RqUID", UUID.randomUUID().toString()) // Генерация идентификатора запроса
                 .addHeader("Authorization", authHeader)
                 .build();
 

@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             String accessToken = TokenProvider.getAccessToken();
-            // System.out.println("Access Token: " + accessToken);
+            System.out.println("Access Token: " + accessToken);
             Scanner scanner = new Scanner(System.in);
 
             while (true) {

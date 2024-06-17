@@ -11,7 +11,7 @@ public class ChatSettings {
     public static final double TOP_P = 0.1;
 
     // Количество вариантов ответа
-    public static final int N = 2;
+    public static final int N = 1;
 
     // Максимальное количество токенов в ответе
     public static final int MAX_TOKENS = 1024;
